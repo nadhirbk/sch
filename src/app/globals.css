@@ -1,3 +1,15 @@
+@keyframes album-wall-scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.album-wall-scroll {
+  animation: album-wall-scroll 40s linear infinite;
+}
 @import "tailwindcss";
 
 :root {
