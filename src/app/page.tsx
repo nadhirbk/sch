@@ -218,8 +218,14 @@ export default function Home() {
           />
         </div>
         <div className="relative z-10 flex flex-col items-center justify-center w-full px-4">
-          <h2 className="text-5xl font-extrabold text-zinc-50 mb-6 drop-shadow-lg">
-            Tournée
+          <h2
+            className="text-5xl font-extrabold text-zinc-50 mb-6 drop-shadow-lg uppercase"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.15em",
+            }}
+          >
+            TOURNÉE
           </h2>
           <a
             href="#billetterie"
@@ -245,8 +251,14 @@ export default function Home() {
           />
         </div>
         <div className="relative z-10 flex flex-col items-center justify-center w-full">
-          <h2 className="text-5xl font-extrabold text-zinc-50 mb-8 drop-shadow-lg">
-            Discographie
+          <h2
+            className="text-5xl font-extrabold text-zinc-50 mb-8 drop-shadow-lg uppercase"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.15em",
+            }}
+          >
+            DISCOGRAPHIE
           </h2>
           <a
             href="#explorer-discographie"
