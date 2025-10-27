@@ -1,4 +1,6 @@
+"use client";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
@@ -6,8 +8,13 @@ export default function Home() {
       {/* Section Hero */}
       <section id="hero" className="flex items-center justify-center w-full">
         <main className="w-full max-w-5xl flex flex-row items-stretch justify-between px-8 py-24 min-h-[700px]">
-          {/* Image SCH à gauche */}
-          <div className="flex-1 flex items-stretch justify-center">
+          {/* Image SCH à gauche avec animation */}
+          <motion.div
+            className="flex-1 flex items-stretch justify-center"
+            initial={{ x: -200, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 60, damping: 18, duration: 1 }}
+          >
             <Image
               src="/main-sch.png"
               alt="SCH"
@@ -16,9 +23,14 @@ export default function Home() {
               className="object-cover h-full drop-shadow-2xl"
               priority
             />
-          </div>
-          {/* Logo SCH à droite + CTA */}
-          <div className="flex-1 flex flex-col items-center justify-center gap-8">
+          </motion.div>
+          {/* Logo SCH à droite avec animation */}
+          <motion.div
+            className="flex-1 flex flex-col items-center justify-center gap-8"
+            initial={{ x: 200, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 60, damping: 18, duration: 1 }}
+          >
             <Image
               src="/sch-logo.png"
               alt="Logo SCH"
@@ -41,7 +53,7 @@ export default function Home() {
                 Discographie
               </a>
             </div>
-          </div>
+          </motion.div>
         </main>
       </section>
       {/* Section Discographie */}
