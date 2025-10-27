@@ -32,7 +32,62 @@ export default function Home() {
   const [rows] = useState(() => generateRows(36, 6));
 
   return (
-    <div className="min-h-screen bg-black text-zinc-50 font-sans overflow-hidden">
+    <div className="min-h-screen bg-transparent text-zinc-50 font-sans overflow-hidden">
+      {/* === HEADER PREMIUM === */}
+      <header className="w-full px-8 py-6 flex items-center justify-center bg-transparent backdrop-blur-sm contrast-125 fixed top-0 left-0 z-50 border-b border-zinc-800">
+        <nav className="flex gap-8 text-sm font-semibold">
+          <a
+            href="#hero"
+            className="hover:text-primary transition uppercase tracking-widest mx-6"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.25em",
+            }}
+          >
+            ACCUEIL
+          </a>
+          <a
+            href="#tournee"
+            className="hover:text-primary transition uppercase tracking-widest mx-6"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.25em",
+            }}
+          >
+            TOURNÉE
+          </a>
+          <a
+            href="#discographie"
+            className="hover:text-primary transition uppercase tracking-widest mx-6"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.25em",
+            }}
+          >
+            DISCOGRAPHIE
+          </a>
+          <a
+            href="#galerie"
+            className="hover:text-primary transition uppercase tracking-widest mx-6"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.25em",
+            }}
+          >
+            GALERIE
+          </a>
+          <a
+            href="#contact"
+            className="hover:text-primary transition uppercase tracking-widest mx-6"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.25em",
+            }}
+          >
+            CONTACT
+          </a>
+        </nav>
+      </header>
       {/* === SECTION HERO === */}
       <section
         id="hero"
@@ -81,7 +136,7 @@ export default function Home() {
           </div>
 
           {/* Overlay sombre pour contraste, moins prononcé */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none"></div>
         </div>
 
         {/* === FOREGROUND : ton contenu principal === */}

@@ -27,40 +27,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="w-full py-6 bg-black/80 backdrop-blur-md border-b border-zinc-800">
-          <nav className="flex justify-center gap-12">
-            <a
-              href="#hero"
-              className="text-zinc-50 text-lg font-semibold hover:text-zinc-400 transition"
-            >
-              Accueil
-            </a>
-            <a
-              href="#biographie"
-              className="text-zinc-50 text-lg font-semibold hover:text-zinc-400 transition"
-            >
-              Biographie
-            </a>
-            <a
-              href="#discographie"
-              className="text-zinc-50 text-lg font-semibold hover:text-zinc-400 transition"
-            >
-              Discographie
-            </a>
-            <a
-              href="#galerie"
-              className="text-zinc-50 text-lg font-semibold hover:text-zinc-400 transition"
-            >
-              Galerie
-            </a>
-            <a
-              href="#contact"
-              className="text-zinc-50 text-lg font-semibold hover:text-zinc-400 transition"
-            >
-              Contact
-            </a>
-          </nav>
-        </header>
+        {/* header global supprimé, seul le header premium de la page reste */}
         {children}
       </body>
     </html>

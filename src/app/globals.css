@@ -1,3 +1,26 @@
+@font-face {
+  font-family: "GTStandard";
+  src: url("/fonts/GTStandard-MRegular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "InstrumentSans";
+  src: url("/fonts/instrumentsans.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ScillaItalic";
+  src: url("/fonts/Scilla_Regular_Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
 @keyframes album-wall-scroll {
   0% {
     transform: translateY(0);
