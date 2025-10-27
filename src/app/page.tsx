@@ -1,9 +1,32 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function Home() {
+  // Référence pour le header
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  // Masquer le header au scroll vers le bas, le montrer au scroll vers le haut
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (headerRef.current) {
+        if (currentScrollY > lastScrollY && currentScrollY > 60) {
+          // Scroll vers le bas : masquer le header
+          headerRef.current.style.transform = "translateY(-100%)";
+        } else {
+          // Scroll vers le haut : afficher le header
+          headerRef.current.style.transform = "translateY(0)";
+        }
+      }
+      lastScrollY = currentScrollY;
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // Génère des rangées aléatoires sans doublons verticaux (pas deux fois le même album dans la même colonne)
   const generateRows = (rowCount = 12, colCount = 6): string[][] => {
     // On commence par une première rangée random
@@ -17,131 +40,126 @@ export default function Home() {
         const candidates: string[] = albums.filter(
           (a) => a !== prevRow[c] && !newRow.includes(a)
         );
-        // Si plus de candidats, on autorise le doublon horizontal
-        const pick: string =
-          candidates.length > 0
-            ? candidates[Math.floor(Math.random() * candidates.length)]
-            : albums[Math.floor(Math.random() * albums.length)];
+        const pick = candidates[Math.floor(Math.random() * candidates.length)];
         newRow.push(pick);
       }
       rows.push(newRow);
     }
     return rows;
   };
-  // Génère 36 rangées aléatoires premium
-  const [rows] = useState(() => generateRows(36, 6));
 
   return (
     <div className="min-h-screen bg-transparent text-zinc-50 font-sans overflow-hidden">
       {/* === HEADER PREMIUM === */}
-      <header className="w-full px-8 py-6 flex items-center justify-center bg-transparent backdrop-blur-sm contrast-125 fixed top-0 left-0 z-50 border-b border-zinc-800">
-        <nav className="flex gap-8 text-sm font-semibold">
+      <header
+        ref={headerRef}
+        className="w-full px-4 py-2 flex items-center justify-center bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-b-2 border-yellow-400/80 shadow-yellow-400/10 shadow-lg backdrop-blur-md contrast-125 fixed top-0 left-0 z-50 transition-transform duration-300"
+      >
+        <nav className="flex gap-3 text-base font-extrabold tracking-widest">
           <a
             href="#hero"
-            className="hover:text-primary transition uppercase tracking-widest mx-6"
+            className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest"
             style={{
               fontFamily: "InstrumentSans, sans-serif",
-              letterSpacing: "0.25em",
+              letterSpacing: "0.18em",
+              border: "2px solid transparent",
             }}
           >
             ACCUEIL
           </a>
           <a
             href="#tournee"
-            className="hover:text-primary transition uppercase tracking-widest mx-6"
+            className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest"
             style={{
               fontFamily: "InstrumentSans, sans-serif",
-              letterSpacing: "0.25em",
+              letterSpacing: "0.18em",
+              border: "2px solid transparent",
             }}
           >
             TOURNÉE
           </a>
           <a
-            href="#discographie"
-            className="hover:text-primary transition uppercase tracking-widest mx-6"
+            href="/discographie"
+            className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest"
             style={{
               fontFamily: "InstrumentSans, sans-serif",
-              letterSpacing: "0.25em",
+              letterSpacing: "0.18em",
+              border: "2px solid transparent",
             }}
           >
             DISCOGRAPHIE
           </a>
           <a
             href="#galerie"
-            className="hover:text-primary transition uppercase tracking-widest mx-6"
+            className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest"
             style={{
               fontFamily: "InstrumentSans, sans-serif",
-              letterSpacing: "0.25em",
+              letterSpacing: "0.18em",
+              border: "2px solid transparent",
             }}
           >
             GALERIE
           </a>
           <a
             href="#contact"
-            className="hover:text-primary transition uppercase tracking-widest mx-6"
+            className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest"
             style={{
               fontFamily: "InstrumentSans, sans-serif",
-              letterSpacing: "0.25em",
+              letterSpacing: "0.18em",
+              border: "2px solid transparent",
             }}
           >
             CONTACT
           </a>
         </nav>
       </header>
+
       {/* === SECTION HERO === */}
       <section
         id="hero"
         className="relative flex items-center justify-center w-full overflow-hidden"
       >
-        {/* === BACKGROUND : Mur d’albums animé === */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <div className="absolute w-full h-[200%] flex flex-col album-wall-scroll">
             {/* 12 rangées aléatoires et dupliquées pour boucle parfaite */}
-            <>
-              {rows.map((row, idx) => (
-                <div
-                  key={"a" + idx}
-                  className="grid grid-cols-6 gap-[2px] opacity-70 contrast-90"
-                >
-                  {row.map((src, i) => (
-                    <Image
-                      key={i}
-                      src={src}
-                      alt="Album cover"
-                      width={250}
-                      height={250}
-                      className="object-cover w-full h-full"
-                    />
-                  ))}
-                </div>
-              ))}
-              {rows.map((row, idx) => (
-                <div
-                  key={"b" + idx}
-                  className="grid grid-cols-6 gap-[2px] opacity-70 contrast-90"
-                >
-                  {row.map((src, i) => (
-                    <Image
-                      key={i}
-                      src={src}
-                      alt="Album cover"
-                      width={250}
-                      height={250}
-                      className="object-cover w-full h-full"
-                    />
-                  ))}
-                </div>
-              ))}
-            </>
+            {generateRows().map((row, idx) => (
+              <div
+                key={"a" + idx}
+                className="grid grid-cols-6 gap-[2px] opacity-70 contrast-90"
+              >
+                {row.map((src, i) => (
+                  <Image
+                    key={i}
+                    src={src}
+                    alt="Album cover"
+                    width={250}
+                    height={250}
+                    className="object-cover w-full h-full"
+                  />
+                ))}
+              </div>
+            ))}
+            {generateRows().map((row, idx) => (
+              <div
+                key={"b" + idx}
+                className="grid grid-cols-6 gap-[2px] opacity-70 contrast-90"
+              >
+                {row.map((src, i) => (
+                  <Image
+                    key={i}
+                    src={src}
+                    alt="Album cover"
+                    width={250}
+                    height={250}
+                    className="object-cover w-full h-full"
+                  />
+                ))}
+              </div>
+            ))}
           </div>
-
-          {/* Overlay sombre pour contraste, moins prononcé */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none"></div>
         </div>
-
-        {/* === FOREGROUND : ton contenu principal === */}
         <main className="relative z-10 w-full max-w-5xl flex flex-row items-stretch justify-between px-8 min-h-[700px] h-full">
-          {/* Portrait SCH animé */}
           <motion.div
             className="flex-1 flex items-stretch justify-center"
             initial={{ x: -200, opacity: 0 }}
@@ -164,8 +182,6 @@ export default function Home() {
               />
             </div>
           </motion.div>
-
-          {/* Logo SCH animé */}
           <motion.div
             className="flex-1 flex flex-col items-center justify-center gap-8"
             initial={{ x: 200, opacity: 0 }}
@@ -187,20 +203,212 @@ export default function Home() {
             />
             <div className="flex flex-row gap-4">
               <a
-                href="#biographie"
-                className="px-8 py-3 rounded-full bg-zinc-900/80 text-zinc-50 font-semibold text-lg shadow-lg hover:bg-zinc-800 transition"
+                href="#billetterie"
+                className="px-8 py-3 rounded-full bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-2 border-yellow-400/80 text-zinc-50 font-extrabold text-lg shadow-xl backdrop-blur-md flex items-center gap-2 transition-all duration-200 hover:scale-105 hover:brightness-125 hover:shadow-yellow-400/60 hover:border-yellow-300/90"
+                style={{
+                  fontFamily: "InstrumentSans, sans-serif",
+                  letterSpacing: "0.12em",
+                  boxShadow: "0 2px 24px 0 rgba(255, 215, 0, 0.08)",
+                }}
               >
-                Biographie
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="text-yellow-400 drop-shadow-lg"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="3"
+                    y="7"
+                    width="18"
+                    height="10"
+                    rx="2"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="#facc15"
+                    fillOpacity="0.15"
+                  />
+                  <path d="M7 7v10" stroke="#facc15" strokeWidth="1.5" />
+                  <path d="M17 7v10" stroke="#facc15" strokeWidth="1.5" />
+                  <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+                </svg>
+                Billetterie
               </a>
               <a
-                href="#discographie"
-                className="px-8 py-3 rounded-full border border-zinc-700 text-zinc-50 font-semibold text-lg hover:bg-zinc-900 transition"
+                href="/discographie"
+                className="px-8 py-3 rounded-full bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-2 border-yellow-400/80 text-zinc-50 font-extrabold text-lg shadow-xl backdrop-blur-md flex items-center gap-2 transition-all duration-200 hover:scale-105 hover:brightness-125 hover:shadow-yellow-400/60 hover:border-yellow-300/90"
+                style={{
+                  fontFamily: "InstrumentSans, sans-serif",
+                  letterSpacing: "0.12em",
+                  boxShadow: "0 2px 24px 0 rgba(255, 215, 0, 0.08)",
+                }}
               >
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="text-yellow-400 drop-shadow-lg"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="#facc15"
+                    fillOpacity="0.15"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    fill="#facc15"
+                    fillOpacity="0.35"
+                  />
+                  <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+                  <path
+                    d="M12 2a10 10 0 0 1 10 10"
+                    stroke="#facc15"
+                    strokeWidth="1.5"
+                  />
+                </svg>
                 Discographie
               </a>
             </div>
           </motion.div>
         </main>
+      </section>
+
+      {/* === SECTION ACTUALITÉ === */}
+      <section
+        id="actualite"
+        className="relative w-full flex flex-col md:flex-row items-center justify-center py-16 bg-gradient-to-b from-zinc-950 via-zinc-900/80 to-zinc-950 gap-8"
+      >
+        <div
+          className="absolute top-0 left-0 w-full flex justify-center pointer-events-none"
+          style={{ zIndex: 2, paddingTop: "2.5rem" }}
+        >
+          <h2
+            className="text-4xl font-extrabold mb-8 drop-shadow-lg uppercase tracking-widest text-center bg-clip-text text-transparent sch-gold-outline"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.15em",
+            }}
+          >
+            Actualité
+          </h2>
+        </div>
+        <div className="w-full flex flex-col items-center justify-center mb-8 md:mb-0 md:pt-16">
+          <div className="w-full max-w-xl mx-auto rounded-2xl overflow-hidden border-2 border-yellow-400/80 shadow-yellow-400/10 shadow-xl backdrop-blur-md bg-zinc-900/80">
+            <div className="aspect-video w-full">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/UI6MNEduTL8?si=tqI36I3NaICyHUIl"
+                title="SCH - Dernier clip"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              ></iframe>
+            </div>
+          </div>
+          <a
+            href="https://youtu.be/UI6MNEduTL8?si=tqI36I3NaICyHUIl"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 px-8 py-3 rounded-full bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-2 border-yellow-400/80 text-zinc-50 font-extrabold text-lg shadow-xl backdrop-blur-md flex items-center gap-2 transition-all duration-200 hover:scale-105 hover:brightness-125 hover:shadow-yellow-400/60 hover:border-yellow-300/90"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.12em",
+              boxShadow: "0 2px 24px 0 rgba(255, 215, 0, 0.08)",
+            }}
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="text-yellow-400 drop-shadow-lg"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="3"
+                y="7"
+                width="18"
+                height="10"
+                rx="2"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="#facc15"
+                fillOpacity="0.15"
+              />
+              <path d="M7 7v10" stroke="#facc15" strokeWidth="1.5" />
+              <path d="M17 7v10" stroke="#facc15" strokeWidth="1.5" />
+              <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+            </svg>
+            Regarder sur YouTube
+          </a>
+        </div>
+        <div className="w-full flex flex-col items-center justify-center md:pl-8 md:pt-16">
+          <div className="w-full max-w-2xl mx-auto rounded-2xl overflow-hidden border-2 border-yellow-400/80 shadow-yellow-400/10 shadow-xl backdrop-blur-md bg-zinc-900/80 flex flex-row items-center p-6 gap-6">
+            <Image
+              src="/albums/jvlivs3.jpeg"
+              alt="JVILVS III : Ad Finem"
+              width={180}
+              height={180}
+              className="object-cover w-[180px] h-[180px] rounded-xl"
+            />
+            <div className="flex flex-col justify-center flex-1">
+              <h3
+                className="text-2xl font-extrabold text-zinc-50 mb-2"
+                style={{
+                  fontFamily: "InstrumentSans, sans-serif",
+                  letterSpacing: "0.12em",
+                }}
+              >
+                JVILVS III : Ad Finem
+              </h3>
+              <p className="text-zinc-300 mb-4">
+                Le nouvel album événement de SCH, disponible partout.
+              </p>
+              <div className="flex flex-row gap-4">
+                <a
+                  href="https://music.sonymusic.fr/SCH-JVLIVSIIIAdFinem"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-yellow-400/80 to-yellow-300/90 text-zinc-900 font-extrabold text-lg shadow-xl backdrop-blur-md transition-all duration-200 hover:scale-105 hover:brightness-110"
+                  style={{
+                    fontFamily: "InstrumentSans, sans-serif",
+                    letterSpacing: "0.12em",
+                    boxShadow: "0 2px 24px 0 rgba(255, 215, 0, 0.18)",
+                  }}
+                >
+                  Stream
+                </a>
+                <a
+                  href="https://shop.sonymusic.fr/SCH-JVLIVSIIIAdFinem"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-2 border-yellow-400/80 text-zinc-50 font-extrabold text-lg shadow-xl backdrop-blur-md transition-all duration-200 hover:scale-105 hover:brightness-110"
+                  style={{
+                    fontFamily: "InstrumentSans, sans-serif",
+                    letterSpacing: "0.12em",
+                    boxShadow: "0 2px 24px 0 rgba(255, 215, 0, 0.18)",
+                  }}
+                >
+                  Acheter
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* === SECTION TOURNÉE === */}
