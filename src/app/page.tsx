@@ -204,7 +204,7 @@ export default function Home() {
             <div className="flex flex-row gap-4">
               <a
                 href="#billetterie"
-                className="px-8 py-3 rounded-full bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-2 border-yellow-400/80 text-zinc-50 font-extrabold text-lg shadow-xl backdrop-blur-md flex items-center gap-2 transition-all duration-200 hover:scale-105 hover:brightness-125 hover:shadow-yellow-400/60 hover:border-yellow-300/90"
+                className="sch-cta"
                 style={{
                   fontFamily: "InstrumentSans, sans-serif",
                   letterSpacing: "0.12em",
@@ -238,7 +238,7 @@ export default function Home() {
               </a>
               <a
                 href="/discographie"
-                className="px-8 py-3 rounded-full bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-2 border-yellow-400/80 text-zinc-50 font-extrabold text-lg shadow-xl backdrop-blur-md flex items-center gap-2 transition-all duration-200 hover:scale-105 hover:brightness-125 hover:shadow-yellow-400/60 hover:border-yellow-300/90"
+                className="sch-cta"
                 style={{
                   fontFamily: "InstrumentSans, sans-serif",
                   letterSpacing: "0.12em",
@@ -323,7 +323,7 @@ export default function Home() {
             href="https://youtu.be/UI6MNEduTL8?si=tqI36I3NaICyHUIl"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 px-8 py-3 rounded-full bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-2 border-yellow-400/80 text-zinc-50 font-extrabold text-lg shadow-xl backdrop-blur-md flex items-center gap-2 transition-all duration-200 hover:scale-105 hover:brightness-125 hover:shadow-yellow-400/60 hover:border-yellow-300/90"
+            className="sch-cta mt-8"
             style={{
               fontFamily: "InstrumentSans, sans-serif",
               letterSpacing: "0.12em",
@@ -356,59 +356,6 @@ export default function Home() {
             Regarder sur YouTube
           </a>
         </div>
-        <div className="w-full flex flex-col items-center justify-center md:pl-8 md:pt-16">
-          <div className="w-full max-w-2xl mx-auto rounded-2xl overflow-hidden border-2 border-yellow-400/80 shadow-yellow-400/10 shadow-xl backdrop-blur-md bg-zinc-900/80 flex flex-row items-center p-6 gap-6">
-            <Image
-              src="/albums/jvlivs3.jpeg"
-              alt="JVILVS III : Ad Finem"
-              width={180}
-              height={180}
-              className="object-cover w-[180px] h-[180px] rounded-xl"
-            />
-            <div className="flex flex-col justify-center flex-1">
-              <h3
-                className="text-2xl font-extrabold text-zinc-50 mb-2"
-                style={{
-                  fontFamily: "InstrumentSans, sans-serif",
-                  letterSpacing: "0.12em",
-                }}
-              >
-                JVILVS III : Ad Finem
-              </h3>
-              <p className="text-zinc-300 mb-4">
-                Le nouvel album événement de SCH, disponible partout.
-              </p>
-              <div className="flex flex-row gap-4">
-                <a
-                  href="https://music.sonymusic.fr/SCH-JVLIVSIIIAdFinem"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full bg-gradient-to-r from-yellow-400/80 to-yellow-300/90 text-zinc-900 font-extrabold text-lg shadow-xl backdrop-blur-md transition-all duration-200 hover:scale-105 hover:brightness-110"
-                  style={{
-                    fontFamily: "InstrumentSans, sans-serif",
-                    letterSpacing: "0.12em",
-                    boxShadow: "0 2px 24px 0 rgba(255, 215, 0, 0.18)",
-                  }}
-                >
-                  Stream
-                </a>
-                <a
-                  href="https://shop.sonymusic.fr/SCH-JVLIVSIIIAdFinem"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-2 border-yellow-400/80 text-zinc-50 font-extrabold text-lg shadow-xl backdrop-blur-md transition-all duration-200 hover:scale-105 hover:brightness-110"
-                  style={{
-                    fontFamily: "InstrumentSans, sans-serif",
-                    letterSpacing: "0.12em",
-                    boxShadow: "0 2px 24px 0 rgba(255, 215, 0, 0.18)",
-                  }}
-                >
-                  Acheter
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* === SECTION TOURNÉE === */}
@@ -435,10 +382,7 @@ export default function Home() {
           >
             TOURNÉE
           </h2>
-          <a
-            href="#billetterie"
-            className="mt-6 px-10 py-4 rounded-full bg-zinc-900/80 text-zinc-50 text-xl font-bold shadow-xl hover:bg-zinc-800/90 transition"
-          >
+          <a href="#billetterie" className="sch-cta mt-6 px-10 py-4 text-xl">
             Réserver ma place
           </a>
         </div>
@@ -470,7 +414,7 @@ export default function Home() {
           </h2>
           <a
             href="#explorer-discographie"
-            className="px-10 py-4 rounded-full bg-zinc-900/80 text-zinc-50 text-xl font-bold shadow-xl hover:bg-zinc-800/90 transition"
+            className="sch-cta px-10 py-4 text-xl"
           >
             Explorer
           </a>

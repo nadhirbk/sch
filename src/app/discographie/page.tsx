@@ -14,10 +14,10 @@ const albums = [
       "A7",
       "Gomorra",
       "Champs-Élysées",
-  "Mauvaises idées",
-  "Solides",
-  "Pas de rêve",
-  "Rêves de mômes",
+      "Mauvaises idées",
+      "Solides",
+      "Pas de rêve",
+      "Rêves de mômes",
       "Fusil",
       "Interlude",
       "Réseaux",
@@ -168,43 +168,92 @@ const albums = [
   },
 ];
 
-
 export default function Page() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const bandeauRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const headerRef = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-      let lastScrollY = window.scrollY;
-      const handleScroll = () => {
-        const currentScrollY = window.scrollY;
-        if (headerRef.current) {
-          if (currentScrollY > lastScrollY && currentScrollY > 60) {
-            headerRef.current.style.transform = "translateY(-100%)";
-          } else {
-            headerRef.current.style.transform = "translateY(0)";
-          }
+  const headerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (headerRef.current) {
+        if (currentScrollY > lastScrollY && currentScrollY > 60) {
+          headerRef.current.style.transform = "translateY(-100%)";
+        } else {
+          headerRef.current.style.transform = "translateY(0)";
         }
-        lastScrollY = currentScrollY;
-      };
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-    return (
-      <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans">
-        <header
-          ref={headerRef}
-          className="w-full px-4 py-2 flex items-center justify-center bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-b-2 border-yellow-400/80 shadow-yellow-400/10 shadow-lg backdrop-blur-md contrast-125 fixed top-0 left-0 z-50 transition-transform duration-300"
-        >
-          <nav className="flex gap-3 text-base font-extrabold tracking-widest">
-            <Link href="/" className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest" style={{ fontFamily: "InstrumentSans, sans-serif", letterSpacing: "0.18em", border: "2px solid transparent" }}>ACCUEIL</Link>
-            <a href="#tournee" className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest" style={{ fontFamily: "InstrumentSans, sans-serif", letterSpacing: "0.18em", border: "2px solid transparent" }}>TOURNÉE</a>
-            <Link href="/discographie" className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest" style={{ fontFamily: "InstrumentSans, sans-serif", letterSpacing: "0.18em", border: "2px solid transparent" }}>DISCOGRAPHIE</Link>
-            <a href="#galerie" className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest" style={{ fontFamily: "InstrumentSans, sans-serif", letterSpacing: "0.18em", border: "2px solid transparent" }}>GALERIE</a>
-            <a href="#contact" className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest" style={{ fontFamily: "InstrumentSans, sans-serif", letterSpacing: "0.18em", border: "2px solid transparent" }}>CONTACT</a>
-          </nav>
-        </header>
+      }
+      lastScrollY = currentScrollY;
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  return (
+    <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans">
+      <header
+        ref={headerRef}
+        className="w-full px-4 py-2 flex items-center justify-center bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-b-2 border-yellow-400/80 shadow-yellow-400/10 shadow-lg backdrop-blur-md contrast-125 fixed top-0 left-0 z-50 transition-transform duration-300"
+      >
+        <nav className="flex gap-3 text-base font-extrabold tracking-widest">
+          <Link
+            href="/"
+            className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.18em",
+              border: "2px solid transparent",
+            }}
+          >
+            ACCUEIL
+          </Link>
+          <a
+            href="#tournee"
+            className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.18em",
+              border: "2px solid transparent",
+            }}
+          >
+            TOURNÉE
+          </a>
+          <Link
+            href="/discographie"
+            className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.18em",
+              border: "2px solid transparent",
+            }}
+          >
+            DISCOGRAPHIE
+          </Link>
+          <a
+            href="#galerie"
+            className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.18em",
+              border: "2px solid transparent",
+            }}
+          >
+            GALERIE
+          </a>
+          <a
+            href="#contact"
+            className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest"
+            style={{
+              fontFamily: "InstrumentSans, sans-serif",
+              letterSpacing: "0.18em",
+              border: "2px solid transparent",
+            }}
+          >
+            CONTACT
+          </a>
+        </nav>
+      </header>
       {/* === CONTENU PAGE DISCOGRAPHIE === */}
-  <div className="flex flex-col w-full pt-16">
+      <div className="flex flex-col w-full pt-16">
         {albums.map((album, idx) => (
           <AlbumBandeau
             key={idx}

@@ -1,3 +1,14 @@
+/* CTA premium SCH */
+.sch-cta {
+  @apply px-8 py-3 rounded-full bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-2 border-yellow-400/80 text-zinc-50 font-extrabold text-lg shadow-xl backdrop-blur-md flex items-center gap-2 transition-all duration-200 hover:scale-105 hover:brightness-125 hover:shadow-yellow-400/60 hover:border-yellow-300/90;
+  font-family: "InstrumentSans", sans-serif;
+  letter-spacing: 0.12em;
+  box-shadow: 0 2px 24px 0 rgba(255, 215, 0, 0.08);
+}
+.sch-cta-gold {
+  @apply bg-gradient-to-r from-yellow-400/80 to-yellow-300/90 text-zinc-900;
+  box-shadow: 0 2px 24px 0 rgba(255, 215, 0, 0.18);
+}
 @font-face {
   font-family: "GTStandard";
   src: url("/fonts/GTStandard-MRegular.woff2") format("woff2");
