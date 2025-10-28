@@ -2,6 +2,7 @@
 import AlbumBandeau from "../../components/AlbumBandeau";
 
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 const albums = [
   {
@@ -13,11 +14,10 @@ const albums = [
       "A7",
       "Gomorra",
       "Champs-Élysées",
-      "Mauvaises idées",
-      "Solides",
-      "Pas de lumière",
-      "Liquide",
-      "Rêves de mômes",
+  "Mauvaises idées",
+  "Solides",
+  "Pas de rêve",
+  "Rêves de mômes",
       "Fusil",
       "Interlude",
       "Réseaux",
@@ -168,113 +168,65 @@ const albums = [
   },
 ];
 
-import { useState, useRef } from "react";
 
 export default function Page() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const bandeauRefs = useRef<(HTMLDivElement | null)[]>([]);
-  return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans overflow-hidden">
-      {/* === HEADER PREMIUM === */}
-      <header className="w-full px-8 py-6 flex items-center justify-center bg-transparent backdrop-blur-sm contrast-125 fixed top-0 left-0 z-50 border-b border-zinc-800">
-        <nav className="flex gap-8 text-sm font-semibold">
-          <Link
-            href="/"
-            className="hover:text-primary transition uppercase tracking-widest mx-6"
-            style={{
-              fontFamily: "InstrumentSans, sans-serif",
-              letterSpacing: "0.25em",
-            }}
-          >
-            ACCUEIL
-          </Link>
-          <Link
-            href="/"
-            className="hover:text-primary transition uppercase tracking-widest mx-6"
-            style={{
-              fontFamily: "InstrumentSans, sans-serif",
-              letterSpacing: "0.25em",
-            }}
-          >
-            ACCUEIL
-          </Link>
-          <a
-            href="#tournee"
-            className="hover:text-primary transition uppercase tracking-widest mx-6"
-            style={{
-              fontFamily: "InstrumentSans, sans-serif",
-              letterSpacing: "0.25em",
-            }}
-          >
-            TOURNÉE
-          </a>
-          <a
-            href="/discographie"
-            className="hover:text-primary transition uppercase tracking-widest mx-6"
-            style={{
-              fontFamily: "InstrumentSans, sans-serif",
-              letterSpacing: "0.25em",
-            }}
-          >
-            DISCOGRAPHIE
-          </a>
-          <a
-            href="#galerie"
-            className="hover:text-primary transition uppercase tracking-widest mx-6"
-            style={{
-              fontFamily: "InstrumentSans, sans-serif",
-              letterSpacing: "0.25em",
-            }}
-          >
-            GALERIE
-          </a>
-          <a
-            href="#contact"
-            className="hover:text-primary transition uppercase tracking-widest mx-6"
-            style={{
-              fontFamily: "InstrumentSans, sans-serif",
-              letterSpacing: "0.25em",
-            }}
-          >
-            CONTACT
-          </a>
-        </nav>
-      </header>
-      {/* === CONTENU PAGE DISCOGRAPHIE === */}
-      <div className="pt-28 pb-8">
-        <h1
-          className="text-4xl font-extrabold uppercase mb-10 text-center"
-          style={{
-            fontFamily: "InstrumentSans, sans-serif",
-            letterSpacing: "0.15em",
-          }}
+    const headerRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+      let lastScrollY = window.scrollY;
+      const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+        if (headerRef.current) {
+          if (currentScrollY > lastScrollY && currentScrollY > 60) {
+            headerRef.current.style.transform = "translateY(-100%)";
+          } else {
+            headerRef.current.style.transform = "translateY(0)";
+          }
+        }
+        lastScrollY = currentScrollY;
+      };
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+    return (
+      <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans">
+        <header
+          ref={headerRef}
+          className="w-full px-4 py-2 flex items-center justify-center bg-gradient-to-r from-zinc-900/90 via-zinc-800/80 to-zinc-900/90 border-b-2 border-yellow-400/80 shadow-yellow-400/10 shadow-lg backdrop-blur-md contrast-125 fixed top-0 left-0 z-50 transition-transform duration-300"
         >
-          DISCOGRAPHIE
-        </h1>
-        <div className="flex flex-col w-full">
-          {albums.map((album, idx) => (
-            <AlbumBandeau
-              key={idx}
-              album={album}
-              open={openIndex === idx}
-              onClick={() => {
-                const willOpen = openIndex !== idx;
-                setOpenIndex(willOpen ? idx : null);
-                setTimeout(() => {
-                  if (willOpen && bandeauRefs.current[idx]) {
-                    bandeauRefs.current[idx]?.scrollIntoView({
-                      behavior: "smooth",
-                      block: "center",
-                    });
-                  }
-                }, 100);
-              }}
-              ref={(el) => {
-                bandeauRefs.current[idx] = el as HTMLDivElement | null; // Corrected ref type
-              }}
-            />
-          ))}
-        </div>
+          <nav className="flex gap-3 text-base font-extrabold tracking-widest">
+            <Link href="/" className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest" style={{ fontFamily: "InstrumentSans, sans-serif", letterSpacing: "0.18em", border: "2px solid transparent" }}>ACCUEIL</Link>
+            <a href="#tournee" className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest" style={{ fontFamily: "InstrumentSans, sans-serif", letterSpacing: "0.18em", border: "2px solid transparent" }}>TOURNÉE</a>
+            <Link href="/discographie" className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest" style={{ fontFamily: "InstrumentSans, sans-serif", letterSpacing: "0.18em", border: "2px solid transparent" }}>DISCOGRAPHIE</Link>
+            <a href="#galerie" className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest" style={{ fontFamily: "InstrumentSans, sans-serif", letterSpacing: "0.18em", border: "2px solid transparent" }}>GALERIE</a>
+            <a href="#contact" className="mx-6 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-yellow-400/30 hover:border-yellow-300/90 uppercase text-zinc-50 font-extrabold tracking-widest" style={{ fontFamily: "InstrumentSans, sans-serif", letterSpacing: "0.18em", border: "2px solid transparent" }}>CONTACT</a>
+          </nav>
+        </header>
+      {/* === CONTENU PAGE DISCOGRAPHIE === */}
+  <div className="flex flex-col w-full pt-16">
+        {albums.map((album, idx) => (
+          <AlbumBandeau
+            key={idx}
+            album={album}
+            open={openIndex === idx}
+            onClick={() => {
+              const willOpen = openIndex !== idx;
+              setOpenIndex(willOpen ? idx : null);
+              setTimeout(() => {
+                if (willOpen && bandeauRefs.current[idx]) {
+                  bandeauRefs.current[idx]?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  });
+                }
+              }, 100);
+            }}
+            ref={(el) => {
+              bandeauRefs.current[idx] = el as HTMLDivElement | null;
+            }}
+          />
+        ))}
       </div>
     </div>
   );
